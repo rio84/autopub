@@ -1,0 +1,9 @@
+.idea
+.idea/*
+logs
+logs/*
+node_modules
+node_modules/*
+*.log
+test/*
+.DS_Store

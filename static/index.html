@@ -1,0 +1,113 @@
+<!doctype html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>Socket.IO</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font: 13px Helvetica, Arial; text-align: center;}
+        body>div{
+            width:300px;
+            margin:0 auto;
+        }
+        form {
+            text-align: center;
+            left:0;right:0;
+            padding: 3px; position: fixed; bottom: 0; width: 100%; }
+        form>center{
+            width:300px;
+            margin: 0 auto;
+            border:solid 3px #004444;
+        }
+        form input {
+            border: 0;
+            padding: 0px; width: 237px;
+            height:30px;
+            margin-right: 0; }
+        form button {
+            width: 56px; height:30px;
+            background: rgb(130, 224, 255);
+            border: none; padding: 0px;
+
+        }
+        button:hover{
+            opacity: .7;
+        }
+        #messages { list-style-type: none; margin: 0; padding: 0; }
+        #messages li {
+            padding: 5px 10px;
+            text-align: right;
+            margin:5px 10px;
+
+        }
+        #messages li span{
+            display: inline-block;
+            border-radius: 18px;
+            padding:5px 10px;
+            text-shadow:1px 1px 3px #ccc;
+            white-space: pre-wrap;
+
+        }
+       /* #messages li:nth-child(odd) { background: #eee; }
+       */
+        #messages li.response{
+            text-align: left;
+
+        }
+        #messages li.response span{
+            color:white;
+            background-color: rgb(130, 224, 255);
+            border-bottom-left-radius: 0;
+        }
+        #messages li.request{
+            text-align: right;
+        }
+        #messages li.request span{
+            border-bottom-right-radius: 0;
+            color:white;
+            background-color: green;
+        }
+        .info{
+            color:white !important;
+        }
+        .error{
+            color:#f30 !important;
+        }
+        .close{
+            color:#999 !important;
+        }
+    </style>
+</head>
+
+<body>
+<div>
+<ul id="messages"></ul>
+<form action="">
+    <center>
+    <input id="m" autocomplete="off" autofocus="autofocus" placeholder="please type here..." /><button>Send</button>
+    </center>
+</form>
+    </div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+<script>
+    var socket = io();
+    $('form').submit(function(){
+        socket.emit('chat message', $('#m').val());
+        $('#m').val('');
+        return false;
+    });
+
+    socket.on('chat message', function(msg){
+        $('#messages').prepend($('<li class="request">').html('<span>'+msg+'</span>'));
+    });
+
+
+    socket.on('chat response', function(msg){
+        var msg=JSON.parse(msg);
+        $('#messages').prepend($('<li class="response">').html('<span class="'+msg.type+'">'+(msg.data||'DONE')+'</span>'));
+    });
+</script>
+</body>
+</html>
