@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>Code Got</title>
+
+</head>
+
+<body>
+<form action="https://github.com/login/oauth/access_token" method="post">
+Posting....
+</form>
+<script>
+    function queryString(key) {
+        var vars = {}, splt;
+        var pairs = location.search.substr(1).split('&');
+        for (var i = 0; i < pairs.length; i++) {
+
+            splt = pairs[i].split('=');
+            vars[splt[0]]=splt[1]
+        }
+        if(key){
+            return vars[key]
+        }
+        return vars;
+    }
+    var qs=queryString();
+    var form=document.forms[0];
+    for(var k in qs){
+        var input=document.createElement('input');
+        input.type='hidden'
+        input.name=k;
+        input.value=qs[k];
+        form.appendChild(input)
+    }
+    form.submit();
+</script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<style>
+    body{text-align: center;}
+    .main{margin:10% auto;text-align: left;width:300px;}
+</style>
+<div class="main">
+
+    <a href="https://developer.github.com/v3/oauth/">see github</a>
+    <br/>
+
+    <form method="post" action="/oauth">
+        <p>
+            <input type="text" required="required" name="client_id" placeholder="client_id" value=""/>
+        </p>
+        <p>
+            <input type="text" required="required" name="client_secret" placeholder="client_secret"/>
+        </p>
+        <p>
+            <input type="text" required="required" name="state" placeholder="state" />
+        </p>
+        <button>Submit</button>
+    </form>
+</div>
+</body>
+</html>
