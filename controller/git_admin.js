@@ -132,7 +132,7 @@ module.exports.hook=function(req,res,next){
     if(rlsReg.test(ref)){
         release({
             owner:json.repository.owner.name,
-            repos:name,
+            repos:json.repository.name,
             version:ref.substr(ref.lastIndexOf('/')+1)
         },function(err,r){
             res.status(200).send(err||'ok')
