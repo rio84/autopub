@@ -21,11 +21,12 @@ var release=function(tagInfo,fn){
     var owner=tagInfo.owner,
         repo=tagInfo.repos,
         version=tagInfo.version,
-        tarball_url='https://api.github.com/repos/'+owner+'/'+repo+'/zipball/rls/'+version;
-    var access_token=jsonstore.r('git_token_'+repo);
-    if(!access_token){
+        tarball_url='https://api.github.com/repos/'+owner+'/'+repo+'/tarball/rls/'+version;
+    var accessJson=jsonstore.r('git_token_'+repo);
+    if(!accessJson || !accessJson.access_token ){
         return fn('no access_token for '+repo)
     }
+    var access_token=accessJson.access_token;
     var headers={
         "User-Agent": 'autopub',
         Authorization: "token "+access_token,
