@@ -11,7 +11,7 @@ then
 fi
 mkdir $DIR
 echo "install dir is: "$INSTALL_PATH
-curl -o $DIR/$TAR_NAME https://codeload.github.com/rio84/autopub/legacy.tar.gz/latest
+curl -o $DIR/$TAR_NAME https://codeload.github.com/rio84/autopub/tar.gz/master
 
 tar -xvf $DIR/$TAR_NAME -C $DIR
 

@@ -13,7 +13,42 @@ module.exports.index=function(req,res,next){
 
 
 };
-var release=function(){
+var release=function(tagInfo,fn){
+
+    var owner=tagInfo.owner,
+        repo=tagInfo.repos,
+        version=tagInfo.version,
+        tarball_url='https://api.github.com/repos/'+owner+'/'+repo+'/zipball/rls/'+version;
+    var access_token=jsonstore.r('git_token_'+repo);
+    if(!access_token){
+        return fn('no access_token for '+repo)
+    }
+    var headers={
+        "User-Agent": 'autopub',
+        Authorization: "token "+access_token,
+        Accept: 'application/json'
+    };
+        //api='https://api.github.com/repos/'+owner+'/'+repo+'/tags';
+
+
+    request({
+        url:tarball_url,
+        headers:headers
+    }).pipe(
+        fs.createWriteStream(
+            tarDir+'/'+[owner,repo,version].join('-')+'.tar.gz'
+        )
+    ).on('error',function(err){
+
+        fn(err)
+    }).on('close',function(err,result){
+        console.log('deploying')
+        deploy.release(tagInfo,function(err,r){
+            fn(err,r)
+        })
+
+    })
+
 
 };
 
@@ -25,6 +60,8 @@ module.exports.test=function(req,res,next){
         Authorization: "token "+access_token,
         Accept: 'application/json'
     };
+
+
     var owner='rio84',
         port='8000',
         repo='HiStock';
@@ -36,9 +73,11 @@ module.exports.test=function(req,res,next){
         headers: headers
     },function(err,response,body){
        // console.log(response.statusCode,body)
+
         var json=JSON.parse(body);
         console.log('tag got!')
 
+//todo:
         var tag0=json[0];
         var matchName;//=tag0.name.match(/^rls\/((\d\.)*\d)$/)
 
@@ -48,8 +87,6 @@ module.exports.test=function(req,res,next){
                 url:tag0.tarball_url,
                 headers:headers
             }).pipe(fs.createWriteStream(tarDir+'/'+[owner,repo,matchName[1]].join('-')+'.tar.gz')).on('error',function(err){
-
-
 
                 res.send({
                     code:500,
@@ -84,7 +121,24 @@ module.exports.test=function(req,res,next){
 ///repos/:owner/:repo/releases
 
 module.exports.hook=function(req,res,next){
-    console.log('query',req.query)
-    console.log('body',req.body)
-    res.send(200,'ok')
+   // console.log('query',req.query)
+   // console.log('body',req.body)
+    var json=req.body;
+    if(typeof json =='string'){
+        json=JSON.parse(json);
+    }
+    var rlsReg=/refs\/tags\/rls\/(\d\.)*\d+$/
+    var ref=json.ref;
+    if(rlsReg.test(ref)){
+        release({
+            owner:json.repository.owner.name,
+            repos:name,
+            version:ref.substr(ref.lastIndexOf('/')+1)
+        },function(err,r){
+            res.status(200).send(err||'ok')
+        })
+    }else{
+        res.status(200).send('ok')
+    }
+
 }

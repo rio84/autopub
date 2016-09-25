@@ -11,12 +11,13 @@ module.exports.index=function(req,res,next){
         client_id= q.client_id,
         client_secret= q.client_secret,
         state= q.state,
-        host=req.headers.host;
+        host=req.headers.host,
+        repos= q.repos;
 
-    if(!(client_id && client_secret && state)){
-        return res.send('required: client_id/client_secret/state');
+    if(!(repos && client_id && client_secret && state)){
+        return res.send('required: repos/client_id/client_secret/state');
     }
-    var redirect_uri=encodeURIComponent( 'http://'+host+'/oauth/callback/'+client_id+client_secret+state);
+    var redirect_uri=encodeURIComponent( 'http://'+host+'/oauth/callback/'+client_id+client_secret+state+'?repos='+repos);
 
 
 
@@ -34,6 +35,7 @@ module.exports.callback=function(req,res,next){
         param=req.params,
         key= param.key||'',
         code= q.code,
+        repos= q.repos,
         host=req.headers.host;
 
 
@@ -69,18 +71,17 @@ module.exports.callback=function(req,res,next){
                 res.send('err')
             }else{
                 var json=util.unparm(body);
-                jsonstore.w('git_token_'+client_id,json)
+                jsonstore.w('git_token_'+repos,json)
                 res.send({code:'ok!',body:body})
             }
             //console.log(err,body);
         })
         //res.redirect(link);
 
-    }else if(q.access_token){
+    }else if(q.access_token){/** 事实上这段是不起作用的
         var token_type= q.token_type,
             access_token=q.access_token;
 
-        // access_token=e72e16c7e42f292c6912e7710c838347ae178b4a&scope=user%2Cgist&token_type=bearer
         var json=util.unparm(util)
 
         var json={
@@ -92,6 +93,7 @@ module.exports.callback=function(req,res,next){
         jsonstore.w('git_token',json)
 
         return res.send(json);
+ */
     }else{
         res.send(q)
     }
