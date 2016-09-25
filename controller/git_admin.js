@@ -14,6 +14,9 @@ module.exports.index=function(req,res,next){
 
 };
 var release=function(tagInfo,fn){
+    if(!fs.existsSync(tarDir)){
+        fs.mkdirSync(tarDir)
+    }
 
     var owner=tagInfo.owner,
         repo=tagInfo.repos,
