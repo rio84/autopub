@@ -82,3 +82,9 @@ module.exports.test=function(req,res,next){
     
 }
 ///repos/:owner/:repo/releases
+
+module.exports.hook=function(req,res,next){
+    console.log('query',req.query)
+    console.log('body',req.body)
+    res.send(200,'ok')
+}

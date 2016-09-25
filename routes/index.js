@@ -19,6 +19,9 @@ router.get('/oauth', function(req,res,next){
 });
 router.post('/oauth', oauth.index);
 
+router.post('/githook', gitAdmin.hook);
+router.get('/githook', gitAdmin.hook);
+
 router.get('/test',gitAdmin.test)
 
 
