@@ -1,3 +1,7 @@
+#!/bin/bash
+## curl -o seed.sh https://raw.githubusercontent.com/rio84/autopub/master/bin/seed.sh
+## sh seed.sh
+## rm seed.sh
 DIR=./tmp-autopub-239884
 INSTALL_PATH=~/localhost
 TAR_NAME=autopub.tar.gz
