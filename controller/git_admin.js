@@ -134,10 +134,11 @@ module.exports.hook=function(req,res,next){
     var rlsReg=/refs\/tags\/rls\/(\d\.)*\d+$/
     var ref=json.ref;
     if(rlsReg.test(ref)){
+        var version=ref.substr(ref.lastIndexOf('/')+1);
         release({
             owner:json.repository.owner.name,
             repos:json.repository.name,
-            version:ref.substr(ref.lastIndexOf('/')+1)
+            version:version
         },function(err,r){
             res.status(200).send(err||'ok! version='+version)
         })
