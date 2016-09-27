@@ -23,7 +23,15 @@
 * see your github: https://github.com/settings/developers
 
 ## Push to publish
-### `autopub.json` in your repository
+### `package.json` specify start script: eg.
+	{
+	 ...
+	 "scripts": {
+        "start": "node app.js" 
+      },
+      ...
+	}
+### `autopub.json` in your repository content eg.
 
 	{
   		"name":"ReposName",
