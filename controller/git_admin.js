@@ -139,7 +139,7 @@ module.exports.hook=function(req,res,next){
             repos:json.repository.name,
             version:ref.substr(ref.lastIndexOf('/')+1)
         },function(err,r){
-            res.status(200).send(err||'ok')
+            res.status(200).send(err||'ok! version='+version)
         })
     }else{
         res.status(200).send('Do nothing! tag name is not match!')
