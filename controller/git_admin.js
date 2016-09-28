@@ -139,7 +139,11 @@ module.exports.hook=function(req,res,next){
     }
     var rlsReg=/refs\/tags\/rls\/(\d\.)*\d+$/
     var ref=json.ref;
-    if(rlsReg.test(ref)){
+    if(rlsReg.test(ref) ){
+        if(json.delete){
+           return res.status(200).send('Do nothing! tag deleted!')
+        }
+
         var version=ref.substr(ref.lastIndexOf('/')+1);
         release({
             owner:json.repository.owner.name,
