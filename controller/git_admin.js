@@ -36,6 +36,7 @@ var release=function(tagInfo,fn){
     };
         //api='https://api.github.com/repos/'+owner+'/'+repo+'/tags';
 
+    logger('get tarball')
 
     request({
         url:tarball_url,
@@ -57,7 +58,7 @@ var release=function(tagInfo,fn){
 
 
 };
-var logger=require('../lib/logger')
+
 
 module.exports.test=function(req,res,next){
     logger('asdasfdasf')
