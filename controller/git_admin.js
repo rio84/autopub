@@ -8,6 +8,8 @@ var deploy=require('../lib/deploy')
 var fs=require('fs');
 var path=require('path');
 var tarDir=path.join(__dirname,'../data/tar')
+
+var logger=require('../lib/logger')
 module.exports.index=function(req,res,next){
 
 
@@ -46,7 +48,7 @@ var release=function(tagInfo,fn){
 
         fn(err)
     }).on('close',function(err,result){
-        console.log('deploying')
+        logger('deploying')
         deploy.release(tagInfo,function(err,r){
             fn(err,r)
         })
@@ -55,8 +57,11 @@ var release=function(tagInfo,fn){
 
 
 };
+var logger=require('../lib/logger')
 
 module.exports.test=function(req,res,next){
+    logger('asdasfdasf')
+    return res.send('ok')
 
     var access_token=jsonstore.r('git_token').access_token;
     var headers={
@@ -71,22 +76,22 @@ module.exports.test=function(req,res,next){
         repo='HiStock';
     var api='https://api.github.com/repos/'+owner+'/'+repo+'/tags';
 
-    console.log('api:',api)
+    logger('api:',api)
     return request({
         url: api,
         headers: headers
     },function(err,response,body){
-       // console.log(response.statusCode,body)
+       // logger(response.statusCode,body)
 
         var json=JSON.parse(body);
-        console.log('tag got!')
+        logger('tag got!')
 
 //todo:
         var tag0=json[0];
         var matchName;//=tag0.name.match(/^rls\/((\d\.)*\d)$/)
 
         if(tag0 && (matchName=tag0.name.match(/^rls\/((\d\.)*\d)$/))){
-            console.log('getting tarbll '+tag0.name)
+            logger('getting tarbll '+tag0.name)
             request({
                 url:tag0.tarball_url,
                 headers:headers
@@ -97,7 +102,7 @@ module.exports.test=function(req,res,next){
                     error:err
                 })
             }).on('close',function(err,result){
-                console.log('deploying')
+                logger('deploying')
                 deploy.release({
                     owner:owner,
                     repos:repo,
@@ -125,8 +130,8 @@ module.exports.test=function(req,res,next){
 ///repos/:owner/:repo/releases
 
 module.exports.hook=function(req,res,next){
-   // console.log('query',req.query)
-   // console.log('body',req.body)
+   // logger('query',req.query)
+   // logger('body',req.body)
     var json=req.body;
     if(typeof json =='string'){
         json=JSON.parse(json);
