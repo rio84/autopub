@@ -65,7 +65,7 @@ module.exports.callback=function(req,res,next){
                 redirect_uri:redirect_uri
             }
         },function(err,httpResponse,body){
-            //access_token=4efff1694f2599b88e48a28b9bf1aab835d5f067&scope=repo&token_type=bearer
+            //access_token=4efff1694f2599b18e48a28b9bf1aab835d5f067&scope=repo&token_type=bearer
 
             if(err){
                 res.send('err')
