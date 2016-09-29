@@ -52,7 +52,8 @@ Refresh Delay:
             if(r && r.result && r.result.length){
                 var html='';
                 r.result.reverse();
-                for(var i= 0,n;n= r.result[i++];){
+                for(var i= 0;i< r.result.length;i++){
+                    var n= r.result[i];
                     html+='<p class="log">'+n+'</p>'
                 }
                 $('#J_Container').html(html);
