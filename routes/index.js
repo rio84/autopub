@@ -10,6 +10,8 @@ var gitAdmin=require('../controller/git_admin')
 
 router.get('/', index);
 
+router.get('/getlog', index.getlog);
+
 router.get('/oauth/callback/:key', oauth.callback);
 router.get('/oauth/callback/', oauth.callback);
 

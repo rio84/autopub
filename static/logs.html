@@ -1,0 +1,75 @@
+<!doctype html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>logs</title>
+
+</head>
+
+<body>
+<style>
+    body{
+        font-family: sans-serif;
+    }
+    .log{
+        margin:5px 0;
+        font-size:12px;
+
+    }
+    div#J_Container{
+        border:solid 3px sienna;
+        border-radius: 10px;;
+        padding:10px;
+        background-color: beige;
+        color:green;
+    }
+</style>
+<p>
+Limit:
+<select id="J_Limit">
+    <option>10</option>
+    <option>20</option>
+    <option>50</option>
+    <option>100</option>
+</select>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Refresh Delay:
+<select id="J_Refresh">
+    <option value="1000">Normal</option>
+    <option value="200">Quick</option>
+    <option value="0">NO Delay</option>
+    <option value="10000">Slow</option>
+</select>
+</p>
+<div id="J_Container">
+</div>
+<script src="/js/jquery.js"></script>
+<script>
+    var showLog=function(){
+        $.getJSON('/getlog',{
+            limit:$('#J_Limit').val()
+        },function(r){
+            if(r && r.result && r.result.length){
+                var html='';
+                r.result.reverse();
+                for(var i= 0,n;n= r.result[i++];){
+                    html+='<p class="log">'+n+'</p>'
+                }
+                $('#J_Container').html(html);
+            }
+
+            var delay=$('#J_Refresh').val() -0;
+
+            if(delay){
+                setTimeout(showLog,delay)
+            }else{
+                showLog();
+
+            }
+
+        })
+    };
+    showLog();
+</script>
+</body>
+</html>
