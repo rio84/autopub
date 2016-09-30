@@ -35,7 +35,7 @@ var release=function(tagInfo,fn){
         Accept: 'application/json'
     };
         //api='https://api.github.com/repos/'+owner+'/'+repo+'/tags';
-
+    logger('!----------------------> Release start! '+repo+'@'+version+'] <--------------------!')
     logger('get tarball')
 
     request({
