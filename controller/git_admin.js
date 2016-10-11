@@ -38,23 +38,30 @@ var release=function(tagInfo,fn){
     logger('!----------------------> Release start! '+repo+'@'+version+'] <--------------------!')
     logger('get tarball')
 
-    request({
-        url:tarball_url,
-        headers:headers
-    }).pipe(
-        fs.createWriteStream(
-            tarDir+'/'+[owner,repo,version].join('-')+'.tar.gz'
-        )
-    ).on('error',function(err){
+    try{
+        request({
+            url:tarball_url,
+            headers:headers
+        }).pipe(
+            fs.createWriteStream(
+                tarDir+'/'+[owner,repo,version].join('-')+'.tar.gz'
+            )
+        ).on('error',function(err){
 
+                fn(err)
+            }).on('close',function(err,result){
+                logger('deploying')
+                deploy.release(tagInfo,function(err,r){
+                    fn(err,r)
+                })
+
+            })
+    }catch(err){
+        logger('catch error '+ err)
         fn(err)
-    }).on('close',function(err,result){
-        logger('deploying')
-        deploy.release(tagInfo,function(err,r){
-            fn(err,r)
-        })
+    }
 
-    })
+
 
 
 };
