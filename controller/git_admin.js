@@ -52,13 +52,15 @@ var release=function(tagInfo,fn){
             targot();
         }else{
             var totalLength,
-                currentLength=0;
+                currentLength= 0,
+                lastTS=Date.now();
             request({
                 url:tarball_url,
                 headers:headers
             }).on('response',function(response){
 
-                totalLength=response.headers['content-length']
+                totalLength=response.headers['content-length'];
+                logger('response',totalLength)
 
             }).on('data',function(buf){
                 var percent='';
@@ -66,7 +68,10 @@ var release=function(tagInfo,fn){
                 if(totalLength){
                     percent=((currentLength/totalLength)*100).toFixed(2)+'%';
                 }
-                logger(['progress:[',totalLength,'of',currentLength,']',percent])
+                if(Date.now()-lastTS>5000) {
+                    lastTS=Date.now();
+                    logger(['progress:[', currentLength, 'of', totalLength, ']', percent])
+                }
 
             }).pipe(
                 fs.createWriteStream(
