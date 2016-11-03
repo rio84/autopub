@@ -70,7 +70,7 @@ var release=function(tagInfo,fn){
                 }
                 if(Date.now()-lastTS>5000) {
                     lastTS=Date.now();
-                    logger(['progress:[', currentLength, 'of', totalLength, ']', percent])
+                    logger(['progress:[', currentLength, 'of', totalLength, ']', percent].join(' '))
                 }
 
             }).pipe(
