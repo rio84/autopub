@@ -36,7 +36,7 @@ var release=function(tagInfo,fn){
     };
         //api='https://api.github.com/repos/'+owner+'/'+repo+'/tags';
     logger('!----------------------> Release start! '+repo+'@'+version+'] <--------------------!')
-    logger('get tarball:'+tarball_url)
+    logger('get tarball')
 
     try{
         request({
