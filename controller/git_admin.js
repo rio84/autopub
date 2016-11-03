@@ -51,16 +51,31 @@ var release=function(tagInfo,fn){
         if(fs.existsSync(targzPath)){
             targot();
         }else{
+            var totalLength,
+                currentLength=0;
             request({
                 url:tarball_url,
                 headers:headers
+            }).on('response',function(response){
+
+                totalLength=response.headers['content-length']
+
+            }).on('data',function(buf){
+                var percent='';
+                currentLength+=buf.toString().length;
+                if(totalLength){
+                    percent=((currentLength/totalLength)*100).toFixed(2)+'%';
+                }
+                logger(['progress:[',totalLength,'of',currentLength,']',percent])
+
             }).pipe(
                 fs.createWriteStream(
                     targzPath
                 )
             ).on('error',function(err){
                     fn(err)
-                }).on('close',targot)
+                }).on('close',targot);
+
         }
 
 
