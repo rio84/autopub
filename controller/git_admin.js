@@ -39,23 +39,31 @@ var release=function(tagInfo,fn){
     logger('get tarball')
 
     try{
-        request({
-            url:tarball_url,
-            headers:headers
-        }).pipe(
-            fs.createWriteStream(
-                tarDir+'/'+[owner,repo,version].join('-')+'.tar.gz'
-            )
-        ).on('error',function(err){
+        var targzPath=tarDir+'/'+[owner,repo,version].join('-')+'.tar.gz';
 
-                fn(err)
-            }).on('close',function(err,result){
-                logger('deploying')
-                deploy.release(tagInfo,function(err,r){
-                    fn(err,r)
-                })
-
+        var targot=function(err,result){
+            logger('deploying')
+            deploy.release(tagInfo,function(err,r){
+                fn(err,r)
             })
+
+        };
+        if(fs.existsSync(targzPath)){
+            targot();
+        }else{
+            request({
+                url:tarball_url,
+                headers:headers
+            }).pipe(
+                fs.createWriteStream(
+                    targzPath
+                )
+            ).on('error',function(err){
+                    fn(err)
+                }).on('close',targot)
+        }
+
+
     }catch(err){
         logger('catch error '+ err)
         fn(err)
@@ -99,17 +107,8 @@ module.exports.test=function(req,res,next){
         var matchName;//=tag0.name.match(/^rls\/((\d\.)*\d)$/)
 
         if(tag0 && (matchName=tag0.name.match(/^rls\/((\d\.)*\d)$/))){
-            logger('getting tarbll '+tag0.name)
-            request({
-                url:tag0.tarball_url,
-                headers:headers
-            }).pipe(fs.createWriteStream(tarDir+'/'+[owner,repo,matchName[1]].join('-')+'.tar.gz')).on('error',function(err){
-
-                res.send({
-                    code:500,
-                    error:err
-                })
-            }).on('close',function(err,result){
+            var targzPath=tarDir+'/'+[owner,repo,matchName[1]].join('-')+'.tar.gz';
+            var gotTar=function(err,result){
                 logger('deploying')
                 deploy.release({
                     owner:owner,
@@ -123,7 +122,22 @@ module.exports.test=function(req,res,next){
                     })
                 })
 
-            })
+            };
+            if(fs.existsSync(targzPath)){
+                gotTar();
+            }else {
+                logger('getting tarbll ' + tag0.name)
+                request({
+                    url: tag0.tarball_url,
+                    headers: headers
+                }).pipe(fs.createWriteStream(targzPath)).on('error', function (err) {
+
+                    res.send({
+                        code: 500,
+                        error: err
+                    })
+                }).on('close', gotTar);
+            }
         }else{
             res.send({code:response.statusCode,msg:'no tag'})
         }
