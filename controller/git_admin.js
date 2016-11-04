@@ -3,7 +3,6 @@
  */
 var request=require('request');
 var jsonstore=require('../lib/jsonstore')
-var util=require('../lib/util');
 var deploy=require('../lib/deploy')
 var fs=require('fs');
 var path=require('path');
@@ -11,8 +10,6 @@ var tarDir=path.join(__dirname,'../data/tar')
 
 var logger=require('../lib/logger')
 module.exports.index=function(req,res,next){
-
-
 
 };
 var release=function(tagInfo,fn){
@@ -36,21 +33,21 @@ var release=function(tagInfo,fn){
     };
         //api='https://api.github.com/repos/'+owner+'/'+repo+'/tags';
     logger('!----------------------> Release start! '+repo+'@'+version+'] <--------------------!')
-    logger('get tarball')
 
     try{
         var targzPath=tarDir+'/'+[owner,repo,version].join('-')+'.tar.gz';
 
-        var targot=function(err,result){
+        var targot=function(){
             logger('deploying')
             deploy.release(tagInfo,function(err,r){
                 fn(err,r)
             })
-
         };
         if(fs.existsSync(targzPath)){
+            logger('tar.gz exists')
             targot();
         }else{
+            logger('get tarball start')
             var totalLength,
                 currentLength= 0,
                 lastTS=Date.now();
@@ -72,25 +69,21 @@ var release=function(tagInfo,fn){
                     lastTS=Date.now();
                     logger(['progress:[', currentLength, 'of', totalLength, ']', percent].join(' '))
                 }
-
             }).pipe(
                 fs.createWriteStream(
                     targzPath
                 )
             ).on('error',function(err){
-                    fn(err)
-                }).on('close',targot);
-
+                fn(err)
+            }).on('close',function(err,result){
+                logger(['progress:[', currentLength, 'of', totalLength, ']', '100%'].join(' '))
+                targot();
+            });
         }
-
-
     }catch(err){
         logger('catch error '+ err)
         fn(err)
     }
-
-
-
 
 };
 
