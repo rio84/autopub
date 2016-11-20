@@ -67,7 +67,7 @@ var release=function(tagInfo,fn){
                 }
                 if(Date.now()-lastTS>5000) {
                     lastTS=Date.now();
-                    logger(['progress:[', currentLength.toLocaleString(), 'of', totalLength.toLocaleString(), ']', percent].join(' '))
+                    logger(['progress:[', (currentLength||'unknown').toLocaleString(), 'of', (totalLength||'unknown').toLocaleString(), ']', percent].join(' '))
                 }
             }).pipe(
                 fs.createWriteStream(
