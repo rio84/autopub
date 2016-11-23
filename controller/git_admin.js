@@ -8,6 +8,8 @@ var fs=require('fs');
 var path=require('path');
 var tarDir=path.join(__dirname,'../data/tar')
 
+var subscriber=require('../lib/subscriber')
+
 var logger=require('../lib/logger')
 module.exports.index=function(req,res,next){
 
@@ -40,7 +42,16 @@ var release=function(tagInfo,fn){
         var targot=function(){
             logger('deploying')
             deploy.release(tagInfo,function(err,r){
-                fn(err,r)
+                logger('callAll subscriber')
+                subscriber.callAll({
+                    owner:owner,
+                    repos:repo,
+                    version:version
+                },function(result){
+                    logger(result.join('\n'))
+                    fn(err,r)
+                });
+
             })
         };
         if(fs.existsSync(targzPath)){

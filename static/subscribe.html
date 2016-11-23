@@ -1,0 +1,65 @@
+<!doctype html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>subscribe</title>
+    <style>
+        .list li{
+            line-height: 2;
+        }
+        .list li:before{
+            content: attr(data-url);
+        }
+    </style>
+</head>
+
+<body>
+
+<fieldset>
+    <legend>Nav</legend>
+    <div>
+        <ol>
+            <li><a href="oauth.html">oauth</a></li>
+            <li><a href="logs.html">logs</a></li>
+            <li><a href="subscribe.html">subscribe</a></li>
+        </ol>
+    </div>
+</fieldset>
+
+<fieldset>
+    <legend>List</legend>
+    <form method="post" action="subscribe?action=del" enctype="application/x-www-form-urlencoded">
+        <input type="hidden" name="url"/>
+        <ol class="list">
+
+        </ol>
+    </form>
+    <div>
+        <form method="post" action="subscribe?action=add" enctype="application/x-www-form-urlencoded">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input required="required" name="url" type="url" size="60" /><button>&nbsp;&nbsp;+ add&nbsp;&nbsp;</button>
+        </form>
+    </div>
+</fieldset>
+
+
+<script src="/js/jquery.js"></script>
+<script>
+    $.getJSON('subscribe',function(r){
+
+        var data=r && r.data;
+        if(data && data.length){
+            var html=''
+            for(var i= 0,n;n=data[i++];){
+                html+='<li data-url="'+ n.url +'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button onclick="ondel(this)">&nbsp;&nbsp;&times; del&nbsp;&nbsp;</button></li>'
+            }
+            $('.list').append(html)
+        }
+    })
+    function ondel(el){
+
+        el.form.url.value=el.parentNode.getAttribute('data-url');
+    }
+</script>
+
+</body>
+</html>
