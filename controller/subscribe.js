@@ -6,7 +6,7 @@ var jsonstore=require('../lib/jsonstore')
 var key='subscribelist'
 module.exports.post=function(req,res,next){
 
-    
+
     var action=req.query.action;
     var url=req.body.url;
     var arr=jsonstore.r(key)||[];
