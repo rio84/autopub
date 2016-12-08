@@ -54,7 +54,7 @@ var release=function(tagInfo,fn){
 
             })
         };
-        if(fs.existsSync(targzPath)){
+        if(fs.existsSync(targzPath) && false){//不走这段,妈的!多此一举
             logger('tar.gz exists')
             targot();
         }else{
