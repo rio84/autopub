@@ -70,6 +70,8 @@ var release=function(tagInfo,fn){
                 totalLength=response.headers['content-length'];
                 logger('response',totalLength)
 
+            }).on('error',function(e){
+                fn(e)
             }).on('data',function(buf){
                 var percent='';
                 currentLength+=buf.toString().length;
