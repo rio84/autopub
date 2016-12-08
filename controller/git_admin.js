@@ -190,13 +190,17 @@ module.exports.hook=function(req,res,next){
         }
 
         var version=ref.substr(ref.lastIndexOf('/')+1);
-        release({
-            owner:json.repository.owner.name,
-            repos:json.repository.name,
-            version:version
-        },function(err,r){
-            res.status(200).send(err||'ok! version='+version)
-        })
+        try {
+            release({
+                owner: json.repository.owner.name,
+                repos: json.repository.name,
+                version: version
+            }, function (err, r) {
+                res.status(200).send(err || 'ok! version=' + version)
+            })
+        }catch(e){
+            res.status(500).send(e)
+        }
     }else{
         res.status(200).send('Do nothing! tag name is not match!')
     }
