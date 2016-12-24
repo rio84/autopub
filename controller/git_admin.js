@@ -71,7 +71,7 @@ var release=function(tagInfo,fn){
                 logger('response',totalLength)
 
             }).on('error',function(e){
-                logger('error',totalLength)
+                logger('error',e)
                 fn(e)
             }).on('data',function(buf){
                 var percent='';
