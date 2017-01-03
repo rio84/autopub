@@ -14,7 +14,7 @@ var logger=require('../lib/logger')
 
 module.exports.index=function(req,res,next){
 
-    console.log('body',req.headers['user-agent'])
+    //console.log('body',req.headers['user-agent'])
     if(req.headers.vcode!='20170103' || req.headers['user-agent']!='autopub' ){
         return res.status(404).send('')
 
