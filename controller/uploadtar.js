@@ -14,7 +14,7 @@ var logger=require('../lib/logger');
 var vcode='';
 var vcodePath='/root/autopub.vcode';
 if(fs.existsSync(vcodePath)){
-    vcode=fs.readFileSync(vcodePath).toString();
+    vcode=fs.readFileSync(vcodePath).toString().replace(/^\s|\s+$/,'');
 }
 
 var errorCounter=3;
@@ -27,7 +27,7 @@ module.exports.index=function(req,res,next){
     }
 
     if(req.headers.vcode!=vcode || req.headers['user-agent']!='autopub' ){
-        logger('error',vcode,req.headers.vcode,req.headers['user-agent'])
+        logger('error',req.headers.vcode,req.headers['user-agent'])
         return res.status(403).send((errorCounter--).toString())
     }
 
