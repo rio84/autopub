@@ -23,10 +23,10 @@ module.exports.index=function(req,res,next){
 
     //console.log('body',req.headers['user-agent'])
     if(!errorCounter){
-        return res.status(401).send(0);
+        return res.status(401).send("0");
     }
     if(req.headers.vcode!=vcode || req.headers['user-agent']!='autopub' ){
-        return res.status(403).send(errorCounter--)
+        return res.status(403).send((errorCounter--).toString())
     }
 
 
