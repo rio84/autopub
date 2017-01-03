@@ -11,13 +11,16 @@ var subscriber=require('../lib/subscriber')
 
 var logger=require('../lib/logger')
 
+var errorCounter=3;
 
 module.exports.index=function(req,res,next){
 
     //console.log('body',req.headers['user-agent'])
+    if(!errorCounter){
+        return res.status(401).send(0);
+    }
     if(req.headers.vcode!='20170103' || req.headers['user-agent']!='autopub' ){
-        return res.status(404).send('')
-
+        return res.status(403).send(errorCounter--)
     }
 
 
