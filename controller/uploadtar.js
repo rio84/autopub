@@ -25,7 +25,9 @@ module.exports.index=function(req,res,next){
     if(!errorCounter){
         return res.status(401).send("0");
     }
-    if(req.headers.vcode!=vcode || req.headers['user-agent']!='autopub' ){
+
+    if(req.headers.vcode!=vcode || req.headers['UserAgent']!='autopub' ){
+        logger('error',req.headers.vcode,req.headers['UserAgent'])
         return res.status(403).send((errorCounter--).toString())
     }
 
