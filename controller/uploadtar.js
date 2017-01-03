@@ -9,7 +9,13 @@ var tarDir=path.join(__dirname,'../data/tar')
 
 var subscriber=require('../lib/subscriber')
 
-var logger=require('../lib/logger')
+var logger=require('../lib/logger');
+
+var vcode='';
+var vcodePath='/root/autopub.vcode';
+if(fs.existsSync(vcodePath)){
+    vcode=fs.readFileSync(vcodePath)
+}
 
 var errorCounter=3;
 
@@ -19,7 +25,7 @@ module.exports.index=function(req,res,next){
     if(!errorCounter){
         return res.status(401).send(0);
     }
-    if(req.headers.vcode!='20170103' || req.headers['user-agent']!='autopub' ){
+    if(req.headers.vcode!=vcode || req.headers['user-agent']!='autopub' ){
         return res.status(403).send(errorCounter--)
     }
 
