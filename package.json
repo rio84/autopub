@@ -17,6 +17,7 @@
     "express": "~4.13.1",
     "jade": "~1.11.0",
 
-    "request":""
+    "request":"",
+    "formidable":"1.0.17"
   }
 }
