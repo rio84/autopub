@@ -15,6 +15,10 @@ var logger=require('../lib/logger')
 module.exports.index=function(req,res,next){
 
     //logger('body',req.body)
+    if(req.body.vcode!='20170103'){
+        return res.status(404).send('')
+
+    }
 
 
     var form = new formidable.IncomingForm(); //创建上传表单
@@ -51,6 +55,7 @@ module.exports.index=function(req,res,next){
 
                 break
             default :
+                fs.unlinkSync(tempPath);
                 res.send({code:1,error:'not a *.tar file'})
                 break
         }
