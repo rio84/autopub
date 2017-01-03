@@ -31,8 +31,8 @@ module.exports.index=function(req,res,next){
         }
         var tempPath=files && files.file && files.file.path;
 
-        console.log(fields)
-        console.log(files.file.type)
+        logger(fields)
+        logger(files.file.type)
         var tagInfo=JSON.parse(fields.json);
         tagInfo.repos=tagInfo.name;
         tagInfo.tarPath=tempPath;
