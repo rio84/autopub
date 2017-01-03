@@ -14,7 +14,7 @@ var logger=require('../lib/logger');
 var vcode='';
 var vcodePath='/root/autopub.vcode';
 if(fs.existsSync(vcodePath)){
-    vcode=fs.readFileSync(vcodePath)
+    vcode=fs.readFileSync(vcodePath).toString();
 }
 
 var errorCounter=3;
