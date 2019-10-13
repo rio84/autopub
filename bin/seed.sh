@@ -20,8 +20,8 @@ rm -f $DIR/$TAR_NAME
 mv $DIR/* $INSTALL_PATH/autopub
 rm -fr $DIR
 cd $INSTALL_PATH/autopub
-echo "CNPM installing..."
-cnpm install
+echo "NPM installing..."
+npm install
 echo "starting app.js. log to './autopub.log'"
 node app.js > autopub.log &
 
