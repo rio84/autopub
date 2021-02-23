@@ -73,4 +73,27 @@ module.exports.index=async function(ctx){
 
     });
 
+/*
+    var json=req.body;
+
+    var tagInfo={
+        owner:owner,
+        repos:repo,
+        version:version
+    }
+    var targzPath=tarDir+'/'+[owner,repo,version].join('-')+'.tar.gz';
+    deploy.release(tagInfo,function(err,r){
+
+        subscriber.callAll(tagInfo,function(result){
+            logger(result.join('\n'))
+            fn(err,r)
+        });
+
+    })
+
+    fs.createWriteStream(
+        targzPath
+    )
+*/
+
 }

@@ -1,23 +1,23 @@
 {
-  "name": "autopub",
-  "version": "1.0.0",
-  "description": "server manage",
-  "main": "app.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start":"node app.js"
-  },
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "express": "^4.13.4",
-    "socket.io": "^1.4.5",
-    "body-parser": "~1.13.2",
-    "cookie-parser": "~1.3.5",
-    "express": "~4.13.1",
-    "jade": "~1.11.0",
-    "request":"",
-    "formidable":"1.0.17",
-    "requirejs":""
-  }
+    "name": "autopub",
+    "version": "1.0.0",
+    "description": "server manage",
+    "main": "app.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "node app.js"
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "koa": "2.13.0",
+        "koa-router": "9.4.0",
+        "koa-session": "",
+        "koa-static": "",
+        "koa-body": "",
+        "requirejs": "",
+        "sqlite": "",
+        "sqlite3": "",
+        "objectid": ""
+    }
 }

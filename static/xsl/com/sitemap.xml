@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<top>
+		
+		<i name="doc">
+			<title>项目</title>
+			<path>/project/index</path>
+			<icon>&#xe695;</icon>
+			<tabs>
+				<i>
+					<title>管理</title>
+					<path>/project/manual</path>
+				</i>
+				<i>
+					<title>建站资讯</title>
+					<path>/p/doc/news</path>
+				</i>
+				<i>
+					<title>版本日志</title>
+					<path>/p/doc/versions</path>
+				</i>
+			</tabs>
+		</i>
+		<!--
+		<i name="issue">
+			<title>需求</title>
+			<path>/p/issue/my</path>
+			<icon>&#xe69e;</icon>
+			<tabs>
+				<i role="developer">
+					<title>用户需求</title>
+					<path>/p/issue/list4dev</path>
+				</i>
+				<i>
+					<title>我的需求</title>
+					<path>/p/issue/my</path>
+				</i>
+				<i>
+					<title>+ 发布需求</title>
+					<path>/p/issue/create</path>
+				</i>
+			</tabs>
+		</i>-->
+		
+	
+	</top>
+	<layout>
+		<full>
+			<i name="user-p" title="用户登录">
+				<i name="login">
+					<title>用户登录</title>
+					<href>/user/login</href>
+				</i>				
+				<i name="register">
+					<title>用户注册</title>
+					<href>/user/register</href>
+				</i>
+			</i>
+			<i name="project-p" title="项目">
+				<i name="index">
+					<title>项目列表</title>
+					<href>/project/index</href>
+				</i>				
+			</i>
+			
+		</full>
+
+
+	</layout>
+</root>
