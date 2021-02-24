@@ -59,7 +59,7 @@ module.exports = {
 
         if (result.files.file && result.files.file.type == 'application/x-tar'){
             //return await cmd.deploy();
-            return tagInfo
+            //return tagInfo
             return await new Promise((resolve,reject)=>{
                 //暂时不动这块代码吧
                 deploy.release(tagInfo,(err,r)=>{
