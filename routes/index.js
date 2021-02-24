@@ -6,10 +6,10 @@ const router = new Router();
 const index=require('../controller/p/index')
 const api=require('../controller/api/index')
 //var osshook=require('../controller/osshook')
-var uploadtar=require('../controller/uploadtar')
+//var uploadtar=require('../controller/uploadtar')
 //var oauth=require('../controller/oauth')
 //var gitAdmin=require('../controller/git_admin')
-var subscribe=require('../controller/subscribe')
+//var subscribe=require('../controller/subscribe')
 
 router.all('/api/:group/:which', api)
 

@@ -7,6 +7,7 @@
             <xsl:with-param name="usejs"></xsl:with-param>
             <xsl:with-param name="title">用户注册</xsl:with-param>
             <xsl:with-param name="tab">register</xsl:with-param>
+            <xsl:with-param name="forcelogin">F</xsl:with-param>
             <xsl:with-param name="content">
              	<xsl:choose>
                     <xsl:when test="data/allow">

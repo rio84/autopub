@@ -4,11 +4,12 @@
 const ApiController={
     
     project:require('./project'),
+    upload:require('./upload'),
    
     //client:require('../client/index'),
   
 };
-
+const LOGIN_IGNORE=['upload']
 module.exports = async (ctx, next) =>{
 
 
@@ -20,7 +21,7 @@ module.exports = async (ctx, next) =>{
     var dat={
         code:0
     };
-    if(!ctx.session.uid){
+    if(LOGIN_IGNORE.indexOf(grp) == -1 && !ctx.session.uid){
         ctx.body={code:1,error:'请登录'}
         return;
     }

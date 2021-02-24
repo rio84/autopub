@@ -7,6 +7,7 @@
         <xsl:param name="content" />
         <xsl:param name="usejs" />
         <xsl:param name="tab" />
+        <xsl:param name="forcelogin">T</xsl:param>
         <xsl:variable name="sitemap_full" select="$sitemap/layout/full"/>
         <xsl:variable name="pathserial" select="h/pathserial" />
 
@@ -33,7 +34,7 @@
                     }
                 </style>
 
-                <xsl:call-template name="common-login"/>
+                <xsl:if test="$forcelogin = 'T'"><xsl:call-template name="common-login"/></xsl:if>
                 <xsl:call-template name="admin-nav"/>
 
                 <aside style="position:sticky;top:0px;width:200px;float:left;padding:0px 0;text-align:left;">

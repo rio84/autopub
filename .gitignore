@@ -9,4 +9,4 @@ test/*
 .DS_Store
 npm-debug.log
 *.db
-
+data/tar/*

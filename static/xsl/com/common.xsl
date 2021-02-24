@@ -143,7 +143,7 @@
     </xsl:template>
     <xsl:template match="*" name="common-login">
         
-        <xsl:if test="not(login/uid)"><script>location.href='/user/login'</script></xsl:if>
+        <xsl:if test="not(login/uid)"><script>if(location.pathname!='/user/login')location.href='/user/login'</script></xsl:if>
         
     </xsl:template>
     <xsl:template match="*" name="common-footer">
