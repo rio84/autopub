@@ -15,7 +15,9 @@ router.all('/api/:group/:which', api)
 
 router.all('/:group/:page\.:ext?', index)
 router.all('/:page\.:ext?', index)
-router.get('/', index);
+router.get('/', function(ctx){
+    ctx.redirect('index')
+});
 
 /*
 router.get('/', index);

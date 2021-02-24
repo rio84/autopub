@@ -6,6 +6,9 @@ define(function(){
 		postProjectAction:function(data,cb){
 			return $.post('/api/project/action',data,cb)
 		},
+		getLogs:function(data,cb){
+			return $.getJSON('/api/logs/getlog',data,cb)
+		}
 		
 	}
 })

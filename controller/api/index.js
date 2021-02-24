@@ -5,6 +5,7 @@ const ApiController={
     
     project:require('./project'),
     upload:require('./upload'),
+    logs:require('./logs'),
    
     //client:require('../client/index'),
   

@@ -6,18 +6,16 @@
 			<title>项目</title>
 			<path>/project/index</path>
 			<icon>&#xe695;</icon>
+			
 			<tabs>
 				<i>
-					<title>管理</title>
-					<path>/project/manual</path>
+					<title>项目列表</title>
+					<path>/project/index</path>
 				</i>
+				
 				<i>
-					<title>建站资讯</title>
-					<path>/p/doc/news</path>
-				</i>
-				<i>
-					<title>版本日志</title>
-					<path>/p/doc/versions</path>
+					<title>系统日志</title>
+					<path>/project/logs</path>
 				</i>
 			</tabs>
 		</i>
@@ -46,6 +44,9 @@
 	</top>
 	<layout>
 		<full>
+			<i name="-p" title="Autopub">
+				
+			</i>
 			<i name="user-p" title="用户登录">
 				<i name="login">
 					<title>用户登录</title>
@@ -60,7 +61,11 @@
 				<i name="index">
 					<title>项目列表</title>
 					<href>/project/index</href>
-				</i>				
+				</i>	
+				<i name="logs">
+					<title>系统日志</title>
+					<href>/project/logs</href>
+				</i>							
 			</i>
 			
 		</full>

@@ -7,7 +7,8 @@
             <xsl:with-param name="usejs"></xsl:with-param>
             <xsl:with-param name="title">Autopub</xsl:with-param>
             <xsl:with-param name="content">
-             
+             	<h3>欢迎使用Autopub</h3>
+             	开始<a href="/project/index">项目管理</a>
                 
             </xsl:with-param>
         </xsl:call-template>
