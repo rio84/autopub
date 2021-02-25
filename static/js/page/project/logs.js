@@ -1,7 +1,8 @@
 define(['../../api'],function(Api){
 	var showLog=function(){
         Api.getLogs({
-            limit:$('#J_Limit').val()
+            limit:$('#J_Limit').val(),
+            appname:$('#J_appname').val()
         },function(r){
             if(r && r.data && r.data.length){
                 var html='';

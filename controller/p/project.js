@@ -23,6 +23,7 @@ module.exports = {
         			"static":json.static,
         			owner:json.owner,
         			port:json.port,
+                    logsDir:json.logsDir,
         			hostcount:Array.isArray(json.server_host)?json.server_host.length:1
         		});
         		        		

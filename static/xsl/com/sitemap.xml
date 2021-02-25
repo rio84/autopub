@@ -3,18 +3,18 @@
 	<top>
 		
 		<i name="doc">
-			<title>项目</title>
+			<title>应用管理</title>
 			<path>/project/index</path>
 			<icon>&#xe695;</icon>
 			
 			<tabs>
 				<i>
-					<title>项目列表</title>
+					<title>应用管理</title>
 					<path>/project/index</path>
 				</i>
 				
 				<i>
-					<title>系统日志</title>
+					<title>日志查看</title>
 					<path>/project/logs</path>
 				</i>
 			</tabs>
@@ -57,13 +57,13 @@
 					<href>/user/register</href>
 				</i>
 			</i>
-			<i name="project-p" title="项目">
+			<i name="project-p" title="应用管理">
 				<i name="index">
-					<title>项目列表</title>
+					<title>应用管理</title>
 					<href>/project/index</href>
 				</i>	
 				<i name="logs">
-					<title>系统日志</title>
+					<title>日志查看</title>
 					<href>/project/logs</href>
 				</i>							
 			</i>

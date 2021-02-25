@@ -37,7 +37,7 @@
 }
 [data-static]{color:darkcyan;}
 [data-static="T"]{color:darkgoldenrod;}
-.action{display:inline-block;height:20px;line-height:20px;width:20px;padding:5px;overflow:hidden;background-color:#dcdcdc;border-radius:10px;color:darkblue;white-space:nowrap;transition:all .2s;}
+.action{display:inline-block;height:20px;line-height:20px;width:20px;padding:5px;overflow:hidden;background-color:#dcdcdc;border-radius:10px;color:darkblue;white-space:nowrap;transition:all .2s;vertical-align:middle;}
 .action:before{content:'\e662';font-family:iconfont;font-size:20px;}
 .action:hover{width:180px;color:#f90;}
 .action>b{display:inline-block;margin-left:10px;}
@@ -89,6 +89,9 @@
 	  						<!--
 	  						<td><xsl:value-of select="owner"/></td>-->
 	  						<td>
+	  							<xsl:if test="logsDir">
+		  							<a href="logs?appname={dirname}">日志</a>&#160;&#160;
+		  						</xsl:if>
 	  							<xsl:if test="port and port != ''">
 		  							<span data-dir="{dirname}" class="J_action action">
 		  								<!--
@@ -97,6 +100,7 @@
 	  									<b onclick="UIAction(this)" data-action="start" class="linklike">启动</b>-->
 		  							</span>
 		  						</xsl:if>
+		  						
 	  						</td>
 	  					</tr>
 	  				</xsl:for-each>
