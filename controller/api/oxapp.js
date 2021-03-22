@@ -1,33 +1,23 @@
 
-
-const deploy=require('../../lib/deploy-upload')
-
-
-const modelUser=require('../../model/user')
-
+const deployOXApp=require('../../lib/deploy-oxapp')
 const path=require('path');
 const fs=require('fs');
 
 const formidable=require('formidable');
 
-
 var errorCounter=10;
 module.exports = {
-
-    deploy:async function(ctx) {
-        
+    deploy:async function(ctx){
         if(!errorCounter){
             ctx.status=401;
             throw 'try enough';
             
         }
-        var name=ctx.headers['auth-user'],
-            pwd=ctx.headers['auth-pass'];
-
-        var authResult=await modelUser.check(name,pwd);
-        if(!authResult || !authResult.id){
+        var code=ctx.headers['auth-code'];
+        
+        if(code!='20999iafsaf'){
             ctx.status=403;
-            throw 'username password not match'
+            throw 'Error'
         }
 
 
@@ -53,17 +43,13 @@ module.exports = {
 
         var tempPath=result.files && result.files.file && result.files.file.path;
 
-            
-        var tagInfo=JSON.parse(result.fields.json);
-        tagInfo.repos=tagInfo.name;
-        tagInfo.tarPath=tempPath;
 
         if (result.files.file && result.files.file.type == 'application/x-tar'){
             //return await cmd.deploy();
-            //return tagInfo
+            
             return await new Promise((resolve,reject)=>{
                 //暂时不动这块代码吧
-                deploy.release(tagInfo,(err,r)=>{
+                deployOXApp.release(result.files.file.path,(err,r)=>{
 
                     if(err){
                         reject(err)
@@ -80,6 +66,17 @@ module.exports = {
 
         
         return 1
+
+    },
+    set_domain:async function(ctx){
+        var code=ctx.headers['auth-code'];
+        
+        if(code!='20999iafsaf'){
+            ctx.status=403;
+            throw 'Error'
+        }
+        var q=ctx.request.body;
+        return await deployOXApp.nginx_set_domain(q.port,q.domain);
     }
 };
 

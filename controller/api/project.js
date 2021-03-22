@@ -50,6 +50,21 @@ module.exports = {
             break
         }
         return 1;
-    }
+    },
+
+/*
+    requireport:async function(ctx){
+        
+        for(var i=0;i<10;i++){
+            var port=20000 +Math.floor( 10000*Math.random() );
+            var checkresult=!!(await cmd.lsof(port))
+            if(!checkresult){
+                return port;
+            }
+            continue
+        }
+        throw 'No idle port found'
+        
+    }*/
 
 };

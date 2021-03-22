@@ -9,13 +9,17 @@
 			
 			<tabs>
 				<i>
-					<title>应用管理</title>
+					<title>平台应用</title>
 					<path>/project/index</path>
 				</i>
 				
 				<i>
-					<title>日志查看</title>
+					<title>平台日志</title>
 					<path>/project/logs</path>
+				</i>
+				<i>
+					<title>生成的应用</title>
+					<path>/project/oxapps</path>
 				</i>
 			</tabs>
 		</i>
@@ -59,13 +63,17 @@
 			</i>
 			<i name="project-p" title="应用管理">
 				<i name="index">
-					<title>应用管理</title>
+					<title>平台应用</title>
 					<href>/project/index</href>
 				</i>	
 				<i name="logs">
-					<title>日志查看</title>
+					<title>平台日志</title>
 					<href>/project/logs</href>
-				</i>							
+				</i>	
+				<i name="oxapps">
+					<title>生成的应用</title>
+					<href>/project/oxapps</href>
+				</i>						
 			</i>
 			
 		</full>

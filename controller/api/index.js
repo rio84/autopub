@@ -5,12 +5,13 @@ const ApiController={
     
     project:require('./project'),
     upload:require('./upload'),
+    oxapp:require('./oxapp'),
     logs:require('./logs'),
    
     //client:require('../client/index'),
   
 };
-const LOGIN_IGNORE=['upload']
+const LOGIN_IGNORE=['upload','oxapp']
 module.exports = async (ctx, next) =>{
 
 

@@ -4,8 +4,6 @@ const fs=require('fs');
 module.exports = {
 
     index:async function(ctx) {
-        var body=ctx.request.body;
-        
 
         var appDir=path.join(__dirname,'../../../')
         var list=fs.readdirSync(appDir);
@@ -42,6 +40,41 @@ module.exports = {
         	
         }
     },
+    oxapps:async function(ctx){
+        var appDir='/Users/wurui/localhost/ox_apps/'
+        var list=fs.readdirSync(appDir);
+
+        var applist=[];
+        
+        list.forEach(x=>{
+            var autopubjsonfile=path.join(appDir,x,'package.json');
+            if(fs.existsSync(autopubjsonfile)){
+                var json=JSON.parse(fs.readFileSync(autopubjsonfile).toString())
+                applist.push({
+                    dirname:x,
+                    name:json.name,
+                    version:json.version,
+                    
+                    owner:json.owner,
+                    port:json.port,
+                    
+                });
+                                
+            }
+            
+        })
+        //console.log(applist.length);
+
+
+
+        return {
+            list:applist,
+
+            dir:appDir,
+
+            
+        }
+    }
    
 
 };
