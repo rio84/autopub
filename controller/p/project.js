@@ -41,24 +41,27 @@ module.exports = {
         }
     },
     oxapps:async function(ctx){
-        var appDir='/Users/wurui/localhost/ox_apps/'
+        var appDir=path.join(__dirname,'../../../')
         var list=fs.readdirSync(appDir);
 
         var applist=[];
         
         list.forEach(x=>{
-            var autopubjsonfile=path.join(appDir,x,'package.json');
-            if(fs.existsSync(autopubjsonfile)){
-                var json=JSON.parse(fs.readFileSync(autopubjsonfile).toString())
-                applist.push({
-                    dirname:x,
-                    name:json.name,
-                    version:json.version,
-                    
-                    owner:json.owner,
-                    port:json.port,
-                    
-                });
+            var autopubjsonfile=path.join(appDir,x,'autopub.json'),
+            packagejsonfile=path.join(appDir,x,'package.json');
+            if(!fs.existsSync(autopubjsonfile) && fs.existsSync(packagejsonfile)){
+                var json=JSON.parse(fs.readFileSync(packagejsonfile).toString())
+                if(json.port){
+                    applist.push({
+                        dirname:x,
+                        name:json.name,
+                        version:json.version,
+                        
+                        owner:json.owner,
+                        port:json.port,
+                        
+                    });
+                }
                                 
             }
             
