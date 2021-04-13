@@ -77,6 +77,16 @@ module.exports = {
         }
         var q=ctx.request.body;
         return await deployOXApp.nginx_set_domain(q.port,q.domain);
+    },
+    undeploy:async function(ctx){
+        var code=ctx.headers['auth-code'];
+        
+        if(code!='20999iafsaf'){
+            ctx.status=403;
+            throw 'Error'
+        }
+        var q=ctx.request.body;
+        return await deployOXApp.undeploy(q.port,q.pjid);
     }
 };
 
