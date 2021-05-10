@@ -5,7 +5,6 @@ const ApiController={
     
     project:require('./project'),
     upload:require('./upload'),
-    oxapp:require('./oxapp'),
     logs:require('./logs'),
    
     //client:require('../client/index'),

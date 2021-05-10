@@ -8,7 +8,6 @@ module.exports = {
 
     portstatus:async function(ctx) {
         
-        
         return !!(await cmd.lsof(ctx.query.port))
     },
    
