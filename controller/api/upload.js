@@ -41,14 +41,12 @@ module.exports = {
             }).on('end',()=>{
                 //console.log('bufLen='+bufLen);
                 const filepath=path.join(__dirname,`../../data/tmp${Math.random()}.tar`)
-                const tagInfo={};//JSON.parse(result.fields.json);
-                tagInfo.repos=tagInfo.name;
-                tagInfo.tarPath=filepath;
+                
                 fs.writeFileSync(filepath,Buffer.concat(bufList,bufLen));
 
                 //return resolve(tagInfo);
                 //暂时不动这块代码吧
-                deploy.release(tagInfo,(err,r)=>{
+                deploy.release(filepath,(err,r)=>{
                     if(err){
                         reject(err)
                     }else{
