@@ -47,6 +47,23 @@ module.exports = {
 	        result.result=r;
 	    }
 	    return result
+    },
+    admin:async function(ctx){
+    	var body=ctx.request.body;
+    	const uid=ctx.session.uid;
+    	var act=body.act;
+    	if(act=='new'){
+    		const authcode=Date.now().toString(36)+Math.random().toString(36);
+    		await modelUser.newAuthCode(uid,authcode);
+    	}
+    	var data= await modelUser.getAuthCode(uid);
+
+    	return {
+    		authcode:data.authcode,
+    		act:act
+
+    	};
+    	 
     }
 
 };

@@ -6,9 +6,10 @@ const tableinit = async function(db){
 	if(r && r.found == 0){
 		//console.log('create')
 		db.exec(`CREATE TABLE user (
-			id 		CHAR(24) 	UNIQUE 		NOT NULL,
-			name 	CHAR(30) 	PRIMARY KEY NOT NULL,
-			pwd 	CHAR(50)				NOT NULL
+			id 			CHAR(24) 	UNIQUE 		NOT NULL,
+			name 		CHAR(30) 	PRIMARY KEY NOT NULL,
+			pwd 		CHAR(50)				NOT NULL,
+			authcode 	CHAR(50)				NOT NULL
 			)`);
 	}else{
 		//db.exec(`DROP TABLE user`);
@@ -31,8 +32,21 @@ module.exports={
 	},
 	insert:async function(name,pwd){
 		var id=objectid().toString();
-		var r=await DB.run(`INSERT INTO user VALUES (?,?,?)`,id,name,pwd);
+		var r=await DB.run(`INSERT INTO user VALUES (?,?,?,?)`,id,name,pwd,'');
 
 		return {id:id,changes:r && r.changes};
+	},
+
+	newAuthCode:async function(uid,authcode){
+		var r=await DB.get(`UPDATE user SET authcode=? WHERE id=?`,authcode,uid);
+		return {changes:r && r.changes};
+
+	},
+	getAuthCode:async function(uid){
+		return await DB.get(`SELECT authcode FROM user WHERE id=?`,uid);
+	},
+	checkAuthCode:async function(authcode){
+		var r=await DB.get(`SELECT COUNT(*) as found FROM user WHERE authcode = ?`,authcode);
+		return r && r.found;
 	}
 };

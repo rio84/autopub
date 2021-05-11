@@ -60,6 +60,10 @@
 					<title>用户注册</title>
 					<href>/user/register</href>
 				</i>
+				<i name="admin">
+					<title>用户管理</title>
+					<href>/user/admin</href>
+				</i>
 			</i>
 			<i name="project-p" title="应用管理">
 				<i name="index">
