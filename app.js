@@ -31,5 +31,8 @@ app.listen(process.env.PORT || 11100);
 
 console.log('>>>>Start Time:',(new Date()).toLocaleString())
 
+console.log(`>>>>NODE_ENV=${process.env.NODE_ENV}; 如果是本地启动请执行'npm test'`)
+
+
 
 

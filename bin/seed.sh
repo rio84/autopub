@@ -3,7 +3,7 @@
 ## sh seed.sh
 ## rm seed.sh
 DIR=./tmp-autopub-239884
-INSTALL_PATH=/home/localhost
+INSTALL_PATH=/var/www
 TAR_NAME=autopub.tar.gz
 if [ x$1 != x ]
 then
