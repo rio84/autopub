@@ -10,7 +10,12 @@ const router=require('./routes/index')
 app.keys = ['autopub-app'];
 app.proxy=true;
 app//.use(xmlParser())
-.use(session(app))
+.use(session({
+  key: 'AUTOPUB.SESS', 
+  maxAge: 86400000,
+  sameSite:'strict'
+ 
+},app))
 
 .use(koaBody({
     jsonLimit:'2mb',
